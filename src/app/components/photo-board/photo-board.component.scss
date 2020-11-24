@@ -1,0 +1,52 @@
+$font-color: #7f7f7f;
+
+h2 {
+  color: $font-color;
+  font-family: "Roboto", sans-serif;
+}
+
+label {
+  color: $font-color;
+}
+
+img {
+  height: 150px;
+}
+
+@media (min-width: 1200px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 1300px;
+  }
+}
+
+.add-button {
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.images-container {
+  margin: 0 -10px;
+  min-height: 380px;
+  .image-wrapper {
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+      flex-grow: 10;
+    }
+    margin: 0 10px;
+  }
+}
+
+#newImageUrl {
+  width: 350px;
+}
+
+.photo-board-container {
+  padding-top: 50px;
+}

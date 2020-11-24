@@ -1,0 +1,123 @@
+<div class="photo-board-container container">
+  <div class="row d-flex">
+    <div class="col-12 pl-0 pr-0">
+      <h2>Photo Board</h2>
+      <hr />
+    </div>
+  </div>
+  <div class="row d-flex align-items-end justify-content-between mb-5 mt-4">
+    <div class="d-flex align-items-end justify-content-between">
+      <div class="p-0 m-0">
+        <label for="newImageUrl">Adding image to the board</label>
+        <input
+          class="form-control"
+          type="text"
+          id="newImageUrl"
+          [(ngModel)]="newImageUrl"
+        />
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary add-button ml-5 mr-5"
+          (click)="addImage()"
+          [disabled]="checkUrl()"
+        >
+          Add
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-primary ml-5"
+          (click)="getTags()"
+        >
+          Run Tagging API
+        </button>
+      </div>
+    </div>
+    <div class="d-flex align-items-end justify-content-between">
+      <div class="mr-5">
+        <label for="selectBoard">Selectan existing board</label>
+        <select
+          class="form-control"
+          id="selectBoard"
+          [(ngModel)]="selectedBoard"
+        >
+          <option *ngFor="let board of boards" [ngValue]="board">
+            {{ board.title }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="createBoard()"
+        >
+          Create a new board
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="images-container d-flex flex-row align-items-start justify-content-between flex-wrap"
+    >
+      <div
+        *ngFor="let image of getBoardImages; let i = index"
+        class="image-wrapper mb-3"
+      >
+        <div class="image">
+          <img
+            [src]="image.url"
+            class="img-thumbnail"
+            (mouseover)="selectedImage = image"
+            (mouseout)="selectedImage = null"
+          />
+        </div>
+        <div class="tags">
+          <span
+            *ngFor="let tag of getThumnailTags(image?.tags)"
+            class="badge badge-pill badge-light"
+            >{{ tag.tag.en }}</span
+          >
+          <span *ngIf="image?.tags?.length" class="badge badge-pill badge-light"
+            >+</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row float-right mt-5">
+    <button
+      mwlConfirmationPopover
+      [popoverTitle]="popoverTitle"
+      [popoverMessage]="popoverMessage"
+      placement="top"
+      (confirm)="onDismissUpdate()"
+      type="button"
+      class="btn btn-outline-primary mr-5"
+      [disabled]="detectUpdates()"
+    >
+      Dismiss Changes
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSave()">
+      Save Board
+    </button>
+  </div>
+</div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate-multiple"
+  [fullScreen]="false"
+  name="photo-board-spinner"
+>
+  <p class="loading" style="color: white">{{ spinnerMessage }}</p>
+</ngx-spinner>
+<app-image-more-details
+  *ngIf="showMore(selectedImage)"
+  [image]="selectedImage"
+></app-image-more-details>
