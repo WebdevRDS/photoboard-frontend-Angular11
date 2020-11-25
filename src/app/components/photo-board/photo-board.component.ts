@@ -1,4 +1,4 @@
-import { Component, OnInit, TrackByFunction } from '@angular/core';
+import { Component, OnInit, TrackByFunction, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { Image, Board, Tag } from '../../shared/models/IPhotoBoard';
 import { PhotoboardService } from '../../shared/services/photoboard.service';
 import { ApiService } from '../../shared/services/api.service';
@@ -70,8 +70,7 @@ export class PhotoBoardComponent implements OnInit {
       if (boards && boards.length) {
         this.boards = boards;
         this.dirtyBoards = [];
-        this.selectedBoard =
-          this.selectedBoard._id === -1 ? boards[0] : this.selectedBoard;
+        this.selectedBoard = boards[0]
         this.spinner.hide('photo-board-spinner');
       }
     });
@@ -88,12 +87,14 @@ export class PhotoBoardComponent implements OnInit {
           );
           return updatedImage.length ? updatedImage[0] : image;
         });
+
         this.dirtyImages = this.dirtyImages.map((image) => {
           const updatedImage = images.filter(
             (u_image) => u_image._id === image._id
           );
           return updatedImage.length ? updatedImage[0] : image;
         });
+
         if (!this.dirtyImages.length) this.dirtyImages = images;
         this.images = updatedImages;
         console.log(this.images, 'hey');
@@ -107,8 +108,8 @@ export class PhotoBoardComponent implements OnInit {
       (img) =>
         img.url === this.newImageUrl && img.board === this.selectedBoard._id
     );
-    if (!this.boards.length) {
-      this.toastrService.error('There is no any boards. Please input board first.');
+    if (!this.boards.length || (this.selectedBoard?._id && this.selectedBoard._id === -1)) {
+      this.toastrService.error('There is no any boards or seleceted board. Please create board first.');
       this.newImageUrl = '';
       return;
     }
@@ -179,6 +180,14 @@ export class PhotoBoardComponent implements OnInit {
     this.spinnerMessage = 'Saving data...';
     this.spinner.show('photo-board-spinner');
     this.apiService.addBoards(this.dirtyBoards).subscribe((boards: Board[]) => {
+      console.log(boards)
+      this.dirtyImages = this.dirtyImages.map((image) => {
+        const updatedBoard = boards.find(
+          (_board) => image.board === _board.previous_id
+        );
+        return updatedBoard ? {...image, board: updatedBoard._id} : image;
+      });
+
       this.apiService
         .addImages(this.dirtyImages)
         .subscribe((images: Image[]) => {

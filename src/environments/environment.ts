@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://photoboard-backend.herokuapp.com/api',
+  // api: 'http://localhost:4201/api',
+  api: 'https://photoboard-backend.herokuapp.com/api'
 };
 
 /*

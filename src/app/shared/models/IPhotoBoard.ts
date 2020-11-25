@@ -14,5 +14,6 @@ export interface Image {
 
 export interface Board {
   _id: number
-  title: string
+  title: string,
+  previous_id?: number
 }
