@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:4201/api'
+  api: 'https://photoboard-backend.herokuapp.com/api'
 };

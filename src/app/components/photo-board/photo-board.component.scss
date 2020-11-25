@@ -21,7 +21,7 @@ img {
 
   .images-container {
     margin: 0 -10px;
-    min-height: 380px;
+    min-height: calc(100vh - 500px);
     .image-wrapper {
       &:first-child {
         padding-left: 0;

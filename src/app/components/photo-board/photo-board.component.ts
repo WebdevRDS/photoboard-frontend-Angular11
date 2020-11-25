@@ -107,6 +107,11 @@ export class PhotoBoardComponent implements OnInit {
       (img) =>
         img.url === this.newImageUrl && img.board === this.selectedBoard._id
     );
+    if (!this.boards.length) {
+      this.toastrService.error('There is no any boards. Please input board first.');
+      this.newImageUrl = '';
+      return;
+    }
     if (isExisted) {
       this.toastrService.error('This file was already existed in this board!');
       this.newImageUrl = '';
@@ -167,7 +172,7 @@ export class PhotoBoardComponent implements OnInit {
   }
 
   showMore(selectedImage: Image | undefined) {
-    return !!(selectedImage && selectedImage?.tags?.length)
+    return !!(selectedImage && selectedImage?.tags?.length);
   }
 
   onSave(): void {
