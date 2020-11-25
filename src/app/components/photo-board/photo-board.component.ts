@@ -162,7 +162,7 @@ export class PhotoBoardComponent implements OnInit {
     });
   }
 
-  getThumnailTags(tags: Tag[] | null) {
+  getThumbnailTags(tags: Tag[] | null) {
     return tags && tags.slice(0, 1);
   }
 

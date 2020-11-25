@@ -6,8 +6,8 @@
     </div>
   </div>
   <div class="row d-flex align-items-end justify-content-between mb-5 mt-4">
-    <div class="d-flex align-items-end justify-content-between">
-      <div class="p-0 m-0">
+    <div class="d-flex align-items-end justify-item-start flex-wrap image-operation-buttons">
+      <div class="p-0 m-0 mr-2">
         <label for="newImageUrl">Adding image to the board</label>
         <input
           class="form-control"
@@ -16,20 +16,20 @@
           [(ngModel)]="newImageUrl"
         />
       </div>
-      <div>
+      <div class="ml-5 mr-5 add-button-wrapper">
         <button
           type="button"
-          class="btn btn-primary add-button ml-5 mr-5"
+          class="btn btn-primary add-button"
           (click)="addImage()"
           [disabled]="checkUrl()"
         >
           Add
         </button>
       </div>
-      <div>
+      <div class="ml-5 get-tag-button">
         <button
           type="button"
-          class="btn btn-outline-primary ml-5"
+          class="btn btn-outline-primary"
           (click)="getTags()"
         >
           Run Tagging API
@@ -78,7 +78,7 @@
         </div>
         <div class="tags">
           <span
-            *ngFor="let tag of getThumnailTags(image?.tags)"
+            *ngFor="let tag of getThumbnailTags(image?.tags)"
             class="badge badge-pill badge-light"
             >{{ tag.tag.en }}</span
           >
