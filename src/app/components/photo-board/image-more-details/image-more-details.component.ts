@@ -7,7 +7,7 @@ import { Image } from "../../../shared/models/IPhotoBoard"
   styleUrls: ['./image-more-details.component.scss']
 })
 export class ImageMoreDetailsComponent implements OnInit {
-  @Input() image!: Image
+  @Input() image!: Image | undefined
 
   constructor() { }
 

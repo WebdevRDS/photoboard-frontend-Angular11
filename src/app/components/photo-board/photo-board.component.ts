@@ -23,6 +23,7 @@ export class PhotoBoardComponent implements OnInit {
     _id: -1,
     title: '',
   };
+  selectedImage: Image | undefined = undefined;
 
   placements = ['top', 'left', 'right', 'bottom'];
   popoverTitle = 'Are you sure?';
@@ -32,7 +33,6 @@ export class PhotoBoardComponent implements OnInit {
   trackByValue: TrackByFunction<string> = (index, value) => value;
 
   spinnerMessage: string = '';
-  selectedImage: Image | null = null;
 
   get getBoardImages() {
     return this.images.filter(
@@ -162,11 +162,11 @@ export class PhotoBoardComponent implements OnInit {
     });
   }
 
-  getThumbnailTags(tags: Tag[] | null) {
+  getThumbnailTags(tags: Tag[] | undefined) {
     return tags && tags.slice(0, 1);
   }
 
-  showMore(selectedImage: Image) {
+  showMore(selectedImage: Image | undefined) {
     return !!(selectedImage && selectedImage?.tags?.length)
   }
 
